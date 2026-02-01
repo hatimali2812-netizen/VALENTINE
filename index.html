@@ -63,7 +63,7 @@ button{
 .hidden{ display:none; }
 
 @keyframes shellFall{
-  from{transform:translateY(-40px) rotate(0);opacity:0}
+  from{transform:translateY(-40px) rotate(0);opacity:1}
   to{transform:translateY(110vh) rotate(360deg);opacity:0}
 }
 
@@ -99,31 +99,37 @@ function playMusic(){
   music.play().catch(()=>{});
 
   question.innerHTML = "I knew it MAM 💖";
-  yesBtn.classList.add("hidden");
-  noBtn.classList.add("hidden");
 
+  // 🔥 RUN ANIMATIONS FIRST
   shells();
   confetti();
+
+  // ⏱️ THEN hide buttons (IMPORTANT)
+  setTimeout(()=>{
+    yesBtn.classList.add("hidden");
+    noBtn.classList.add("hidden");
+  },200);
 }
 
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
 function moveNo(){
-  const x = (Math.random()*2-1)*(window.innerWidth/2);
-  const y = (Math.random()*2-1)*(window.innerHeight/3);
+  const x = (Math.random()*2-1)*(window.innerWidth/1.5);
+  const y = (Math.random()*2-1)*(window.innerHeight/2.5);
   noBtn.style.transform = `translate(${x}px,${y}px)`;
 }
 
 function shells(){
-  for(let i=0;i<18;i++){
+  for(let i=0;i<20;i++){
     const s=document.createElement("div");
-    s.innerText="🐚";
+    s.textContent="🐚";
     s.style.position="fixed";
     s.style.left=Math.random()*100+"vw";
     s.style.top="-40px";
-    s.style.fontSize=Math.random()*16+18+"px";
-    s.style.animation="shellFall 5s ease-in-out forwards";
+    s.style.fontSize=Math.random()*18+18+"px";
+    s.style.zIndex=999;
+    s.style.animation="shellFall 5s linear forwards";
     document.body.appendChild(s);
     setTimeout(()=>s.remove(),5000);
   }
@@ -131,15 +137,16 @@ function shells(){
 
 function confetti(){
   const colors=["#ffcad4","#ffd6a5","#cdb4db","#bde0fe"];
-  for(let i=0;i<24;i++){
+  for(let i=0;i<30;i++){
     const c=document.createElement("div");
     c.style.position="fixed";
-    c.style.width="6px";
-    c.style.height="6px";
+    c.style.width="8px";
+    c.style.height="8px";
     c.style.borderRadius="50%";
     c.style.background=colors[Math.floor(Math.random()*4)];
     c.style.left=Math.random()*100+"vw";
     c.style.top=Math.random()*100+"vh";
+    c.style.zIndex=999;
     c.style.animation="confettiFloat 2s ease-out forwards";
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),2000);
