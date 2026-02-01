@@ -1,174 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Valentine 💖</title>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: #ffd6e8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #ffd6e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
 
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      text-align: center;
-      width: 320px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      position: relative;
-      z-index: 2;
-    }
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 320px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+  }
 
-    img {
-      width: 180px;
-      margin-bottom: 15px;
-    }
+  img {
+    width: 180px;
+    margin-bottom: 15px;
+  }
 
-    h2 {
-      margin-bottom: 20px;
-    }
+  h2 {
+    margin-bottom: 20px;
+  }
 
-    .buttons {
-      position: relative;
-      height: 90px;
-    }
+  .buttons {
+    position: relative;
+    height: 120px;
+  }
 
-    button {
-      padding: 12px 24px;
-      border-radius: 30px;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      position: absolute;
-    }
+  button {
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    transition: transform 0.12s linear;
+  }
 
-    #yes {
-      background: #ff4d6d;
-      color: white;
-      left: 30px;
-    }
+  #yes {
+    background: #ff4d6d;
+    color: white;
+    left: 40px;
+  }
 
-    #no {
-      background: #eee;
-      color: black;
-      right: 30px;
-    }
+  #no {
+    background: #eee;
+    color: black;
+    right: 40px;
+  }
 
-    .hidden {
-      display: none;
-    }
+  .hidden {
+    display: none;
+  }
 
-    /* 🌊 Smooth animations */
-    @keyframes shellFall {
-      0% {
-        transform: translateY(-30px) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
+  @keyframes shellFall {
+    from { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+    to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
 
-    @keyframes confettiFloat {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1.6);
-        opacity: 0;
-      }
-    }
-  </style>
+  @keyframes confettiFloat {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(1.5); opacity: 0; }
+  }
+</style>
 </head>
 
 <body>
 
-  <div class="card">
-    <img src="bear.gif" alt="bear">
+<div class="card">
+  <img src="bear.gif">
 
-    <h2 id="question">Dumboooo will you be my valentine ?</h2>
+  <h2 id="question">Dumboooo will you be my valentine ?</h2>
 
-    <div class="buttons">
-      <button id="yes">Yes</button>
-      <button id="no">No</button>
-    </div>
-
-    <audio id="music" src="love.mp3"></audio>
+  <div class="buttons">
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
   </div>
 
-  <script>
-    const yesBtn = document.getElementById("yes");
-    const noBtn = document.getElementById("no");
-    const question = document.getElementById("question");
-    const music = document.getElementById("music");
+  <audio id="music" src="love.mp3" preload="auto"></audio>
+</div>
 
-    // YES click
-    yesBtn.addEventListener("click", () => {
-      question.innerHTML = "I knew it MAM 💖";
-      yesBtn.classList.add("hidden");
-      noBtn.classList.add("hidden");
-      music.play();
-      launchShells();
-      launchConfetti();
-    });
+<script>
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+const question = document.getElementById("question");
+const music = document.getElementById("music");
 
-    // NO button moves position only
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 60 - 30;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    });
+yesBtn.addEventListener("click", () => {
+  music.currentTime = 0;
+  music.play();
 
-    // 🐚 Smooth shells
-    function launchShells() {
-      for (let i = 0; i < 18; i++) {
-        const shell = document.createElement("div");
-        shell.innerText = "🐚";
-        shell.style.position = "fixed";
-        shell.style.left = Math.random() * 100 + "vw";
-        shell.style.top = "-30px";
-        shell.style.fontSize = Math.random() * 18 + 18 + "px";
-        shell.style.animation = "shellFall 5s ease-in-out forwards";
-        shell.style.pointerEvents = "none";
-        document.body.appendChild(shell);
-        setTimeout(() => shell.remove(), 5000);
-      }
-    }
+  question.innerHTML = "I knew it MAM 💖";
+  yesBtn.classList.add("hidden");
+  noBtn.classList.add("hidden");
 
-    // 🎉 Smooth confetti
-    function launchConfetti() {
-      for (let i = 0; i < 22; i++) {
-        const confetti = document.createElement("div");
-        confetti.style.position = "fixed";
-        confetti.style.width = "6px";
-        confetti.style.height = "6px";
-        confetti.style.borderRadius = "50%";
-        confetti.style.background =
-          ["#ffcad4", "#ffd6a5", "#cdb4db", "#bde0fe"][
-            Math.floor(Math.random() * 4)
-          ];
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.top = Math.random() * 100 + "vh";
-        confetti.style.animation = "confettiFloat 2s ease-out forwards";
-        confetti.style.pointerEvents = "none";
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 2000);
-      }
-    }
-  </script>
+  shells();
+  confetti();
+});
+
+// 🔥 PERFECT NO BUTTON LOGIC
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+function moveNo() {
+  // RESET transform first so it NEVER locks
+  noBtn.style.transform = "translate(0px, 0px)";
+
+  // Random FAR + NEAR movement
+  const x = (Math.random() < 0.5 ? -1 : 1) * (80 + Math.random() * 180);
+  const y = (Math.random() < 0.5 ? -1 : 1) * (30 + Math.random() * 120);
+
+  setTimeout(() => {
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  }, 10);
+}
+
+// 🐚 Shells
+function shells() {
+  for (let i = 0; i < 18; i++) {
+    const s = document.createElement("div");
+    s.innerText = "🐚";
+    s.style.position = "fixed";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = "-40px";
+    s.style.fontSize = Math.random() * 16 + 18 + "px";
+    s.style.animation = "shellFall 5s ease-in-out forwards";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 5000);
+  }
+}
+
+// 🎉 Confetti
+function confetti() {
+  for (let i = 0; i < 24; i++) {
+    const c = document.createElement("div");
+    c.style.position = "fixed";
+    c.style.width = "6px";
+    c.style.height = "6px";
+    c.style.borderRadius = "50%";
+    c.style.background = ["#ffcad4","#ffd6a5","#cdb4db","#bde0fe"]
+      [Math.floor(Math.random()*4)];
+    c.style.left = Math.random()*100 + "vw";
+    c.style.top = Math.random()*100 + "vh";
+    c.style.animation = "confettiFloat 2s ease-out forwards";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2000);
+  }
+}
+</script>
 
 </body>
 </html>
