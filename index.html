@@ -13,6 +13,7 @@
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
+      overflow: hidden;
     }
 
     .card {
@@ -23,6 +24,7 @@
       width: 320px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       position: relative;
+      z-index: 2;
     }
 
     img {
@@ -36,7 +38,7 @@
 
     .buttons {
       position: relative;
-      height: 80px;
+      height: 90px;
     }
 
     button {
@@ -62,6 +64,32 @@
 
     .hidden {
       display: none;
+    }
+
+    /* 🌊 Smooth animations */
+    @keyframes shellFall {
+      0% {
+        transform: translateY(-30px) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes confettiFloat {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -93,14 +121,53 @@
       yesBtn.classList.add("hidden");
       noBtn.classList.add("hidden");
       music.play();
+      launchShells();
+      launchConfetti();
     });
 
-    // NO button moves position
+    // NO button moves position only
     noBtn.addEventListener("mouseover", () => {
       const x = Math.random() * 200 - 100;
       const y = Math.random() * 60 - 30;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
     });
+
+    // 🐚 Smooth shells
+    function launchShells() {
+      for (let i = 0; i < 18; i++) {
+        const shell = document.createElement("div");
+        shell.innerText = "🐚";
+        shell.style.position = "fixed";
+        shell.style.left = Math.random() * 100 + "vw";
+        shell.style.top = "-30px";
+        shell.style.fontSize = Math.random() * 18 + 18 + "px";
+        shell.style.animation = "shellFall 5s ease-in-out forwards";
+        shell.style.pointerEvents = "none";
+        document.body.appendChild(shell);
+        setTimeout(() => shell.remove(), 5000);
+      }
+    }
+
+    // 🎉 Smooth confetti
+    function launchConfetti() {
+      for (let i = 0; i < 22; i++) {
+        const confetti = document.createElement("div");
+        confetti.style.position = "fixed";
+        confetti.style.width = "6px";
+        confetti.style.height = "6px";
+        confetti.style.borderRadius = "50%";
+        confetti.style.background =
+          ["#ffcad4", "#ffd6a5", "#cdb4db", "#bde0fe"][
+            Math.floor(Math.random() * 4)
+          ];
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.top = Math.random() * 100 + "vh";
+        confetti.style.animation = "confettiFloat 2s ease-out forwards";
+        confetti.style.pointerEvents = "none";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2000);
+      }
+    }
   </script>
 
 </body>
