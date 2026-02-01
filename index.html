@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Valentine 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
+      margin: 0;
+      height: 100vh;
       background: #ffd6e8;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       font-family: Arial, sans-serif;
-      overflow: hidden;
     }
 
-    .box {
+    .card {
       background: white;
       padding: 30px;
       border-radius: 20px;
       text-align: center;
-      width: 90%;
-      max-width: 400px;
-      position: relative;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    img {
+      width: 180px;
+      margin-bottom: 15px;
     }
 
     h2 {
       margin-bottom: 20px;
     }
 
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
     button {
-      padding: 12px 25px;
-      margin: 10px;
-      font-size: 18px;
-      border-radius: 25px;
+      padding: 12px 24px;
+      border-radius: 30px;
       border: none;
+      font-size: 16px;
       cursor: pointer;
+      transition: transform 0.25s ease;
     }
 
     #yes {
@@ -44,65 +53,55 @@
       color: white;
     }
 
-<script>
-  const noBtn = document.getElementById("no");
-
-  noBtn.addEventListener("mouseover", () => {
-    noBtn.style.transform = "scale(0.75)";
-  });
-
-  noBtn.addEventListener("mouseout", () => {
-    noBtn.style.transform = "scale(1)";
-  });
-</script>
-    
-   #no {
-     transition: transform 0.25s ease;
+    #no {
+      background: #eee;
+      color: black;
     }
-    
-    img {
-      width: 200px;
-      margin-top: 20px;
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 
 <body>
 
-<div class="box" id="box">
-  <h2>Dumboooo will you be my valentine ? 💕</h2>
+  <div class="card">
+    <img src="bear.gif" alt="bear" />
 
-  <button id="yes">Yes</button>
-  <button id="no">No</button>
+    <h2 id="question">Dumboooo will you be my valentine ?</h2>
 
-  <p style="font-size:12px;">“No” seems a bit shy 😈</p>
-</div>
+    <div class="buttons">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
 
-<audio id="bgMusic" src="love.mp3"></audio>
+    <audio id="music" src="love.mp3"></audio>
+  </div>
 
-<script>
-  const noBtn = document.getElementById("no");
-  const yesBtn = document.getElementById("yes");
-  const box = document.getElementById("box");
-  const music = document.getElementById("bgMusic");
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const question = document.getElementById("question");
+    const music = document.getElementById("music");
 
-  noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 100);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  });
+    // YES click
+    yesBtn.addEventListener("click", () => {
+      question.innerHTML = "I knew it MAM 💖";
+      yesBtn.classList.add("hidden");
+      noBtn.classList.add("hidden");
+      music.play();
+    });
 
-  yesBtn.addEventListener("click", () => {
-    music.currentTime = 20; // adjust this to exact "All I dream of you" second
-    music.play();
+    // NO hover (shrink only, not vanish)
+    noBtn.addEventListener("mouseover", () => {
+      noBtn.style.transform = "scale(0.75)";
+    });
 
-    box.innerHTML = `
-      <h2>I knew it MAM 💖🎉</h2>
-      <img src="bear.gif" alt="Love Bear">
-    `;
-  });
-</script>
+    noBtn.addEventListener("mouseout", () => {
+      noBtn.style.transform = "scale(1)";
+    });
+  </script>
 
 </body>
 </html>
