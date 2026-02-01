@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Valentine 💖</title>
 
   <style>
@@ -22,6 +22,7 @@
       text-align: center;
       width: 320px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
     }
 
     img {
@@ -34,9 +35,8 @@
     }
 
     .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+      position: relative;
+      height: 80px;
     }
 
     button {
@@ -45,17 +45,19 @@
       border: none;
       font-size: 16px;
       cursor: pointer;
-      transition: transform 0.25s ease;
+      position: absolute;
     }
 
     #yes {
       background: #ff4d6d;
       color: white;
+      left: 30px;
     }
 
     #no {
       background: #eee;
       color: black;
+      right: 30px;
     }
 
     .hidden {
@@ -67,7 +69,7 @@
 <body>
 
   <div class="card">
-    <img src="bear.gif" alt="bear" />
+    <img src="bear.gif" alt="bear">
 
     <h2 id="question">Dumboooo will you be my valentine ?</h2>
 
@@ -93,13 +95,11 @@
       music.play();
     });
 
-    // NO hover (shrink only, not vanish)
+    // NO button moves position
     noBtn.addEventListener("mouseover", () => {
-      noBtn.style.transform = "scale(0.75)";
-    });
-
-    noBtn.addEventListener("mouseout", () => {
-      noBtn.style.transform = "scale(1)";
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 60 - 30;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
     });
   </script>
 
