@@ -44,11 +44,22 @@
       color: white;
     }
 
-    #no {
-      position: absolute;
-      background: #ddd;
-    }
+<script>
+  const noBtn = document.getElementById("no");
 
+  noBtn.addEventListener("mouseover", () => {
+    noBtn.style.transform = "scale(0.75)";
+  });
+
+  noBtn.addEventListener("mouseout", () => {
+    noBtn.style.transform = "scale(1)";
+  });
+</script>
+    
+   #no {
+     transition: transform 0.25s ease;
+    }
+    
     img {
       width: 200px;
       margin-top: 20px;
